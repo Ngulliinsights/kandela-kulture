@@ -1,0 +1,2 @@
+{ "name": "kandela-kulture-site", "version": "1.0.0", "private": true, "description": "Kandela Kulture website and RSVP backend (no dependencies).", "engines": { "node": ">=20" },
+  "scripts": { "start": "node server/start.js", "test": "node --test", "purge": "node scripts/purge.js" }, "license": "UNLICENSED" }

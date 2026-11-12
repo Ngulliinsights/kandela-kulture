@@ -1,0 +1,26 @@
+[
+  {
+    "id": "supper-walk",
+    "title": "Supper and a walk",
+    "date": "2026-11-14",
+    "time": "19:00",
+    "area": "Nairobi (exact place sent on RSVP)",
+    "bring": "A dish to share and shoes you can walk in",
+    "access": "Step-free, seating available, normal lighting",
+    "host": "Your host, first name only",
+    "cap": 30,
+    "sample": true
+  },
+  {
+    "id": "build-day",
+    "title": "Build day: refit a studio",
+    "date": "2026-11-22",
+    "time": "10:00",
+    "area": "Nairobi (exact place sent on RSVP)",
+    "bring": "Clothes you can work in",
+    "access": "Some lifting; seated tasks available",
+    "host": "Your host, first name only",
+    "cap": 20,
+    "sample": true
+  }
+]
