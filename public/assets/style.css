@@ -293,14 +293,15 @@ details[open] summary:after{transform:rotate(45deg)}
 .pp .pp-bg{z-index:0;--m:none}
 
 /* Venn diagram */
-.venn{display:grid;place-items:center;margin:18px 0;max-width:780px}
-.venn svg{width:100%;height:auto;overflow:visible}
-.venn .v1,.venn .v2{fill:var(--deep);opacity:.85}
-.venn .lens{fill:var(--amber);opacity:.32}
-.venn text{font:700 1.05rem var(--fb);fill:var(--cream);text-anchor:middle}
-.venn .vs{font:500 .84rem var(--fb);fill:var(--stone)}
-.venn .t3{fill:var(--navy);font-weight:800}
-.venn figcaption{text-align:center;color:var(--mu);margin-top:12px;font-size:.9rem}
+.venn{margin:8px 0 28px}
+.venn svg{width:100%;max-width:780px;height:auto;display:block}
+.venn .v1{fill:color-mix(in srgb,var(--gd) 14%,transparent);stroke:var(--gd);stroke-width:2}
+.venn .v2{fill:color-mix(in srgb,var(--tx) 9%,transparent);stroke:var(--tx);stroke-opacity:.55;stroke-width:2}
+.venn .lens{fill:color-mix(in srgb,var(--gd) 34%,transparent)}
+.venn text{fill:var(--tx);font-family:var(--fd);font-weight:700;font-size:26px;text-anchor:middle}
+.venn .vs{font-family:var(--fb);font-weight:400;font-size:16px;fill:var(--mu)}
+.venn .t3{fill:var(--gd);font-size:25px}
+.venn figcaption{color:var(--mu);margin-top:8px;max-width:60ch}
 
 /* Social links */
 .sl{display:flex;flex-wrap:wrap;gap:12px;list-style:none;padding:0;margin:18px 0}
@@ -311,18 +312,21 @@ details[open] summary:after{transform:rotate(45deg)}
 .fg .sl a{padding:0 12px}
 
 /* 9 · MEDIA ---------------------------------------------------------------- */
-.im{margin:0;position:relative;overflow:hidden;border-radius:18px;background:var(--pn);isolation:isolate}
+.im{margin:0;position:relative;overflow:hidden;border-radius:18px;background:var(--pn);isolation:isolate;box-shadow:0 14px 34px -14px rgba(0,0,0,.55),0 0 0 1px color-mix(in srgb,var(--ln) 65%,transparent)}
+.im::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 28px rgba(6,14,30,.38),inset 0 1px 0 rgba(255,186,60,.14);transition:box-shadow var(--t3) var(--eo)}
+.im:hover::after{box-shadow:inset 0 0 34px rgba(6,14,30,.2),inset 0 1px 0 rgba(255,186,60,.28)}
 .im-b{display:block;height:100%;color:inherit;text-decoration:none;cursor:zoom-in}
-.im img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--eo),opacity .7s var(--eo)}
+.im img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--eo),opacity .7s var(--eo);filter:contrast(1.02) saturate(1.03)}
 .js .im img:not(.ld){opacity:0;transform:scale(1.04)}
 .im:hover img{transform:scale(1.04)}
-.im figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;font-size:.88rem;line-height:1.35;color:var(--cream);background:linear-gradient(0deg,rgba(6,14,30,.82),transparent);opacity:0;transform:translateY(8px);transition:opacity var(--t3) var(--eo),transform var(--t3) var(--eo);pointer-events:none}
+.im figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;font-size:.88rem;line-height:1.35;color:var(--cream);background:linear-gradient(0deg,color-mix(in srgb,var(--bg) 92%,transparent) 0%,transparent 100%);opacity:0;transform:translateY(8px);transition:opacity var(--t3) var(--eo),transform var(--t3) var(--eo);pointer-events:none}
 .im:hover figcaption,.im:focus-within figcaption{opacity:1;transform:none}
 @media (hover:none){.im figcaption{opacity:1;transform:none}}
 .im .cr{opacity:.7;margin-left:.4em}
 .im.wide{max-width:960px;margin:0 0 2em}
 .im.side{max-width:560px;margin:1.5em 0}
-.im.full{border-radius:0;width:100vw;margin:2.4em 0 2.4em calc(50% - 50vw)}
+.im.full{border-radius:0;width:100vw;margin:2.4em 0 2.4em calc(50% - 50vw);box-shadow:none}
+.im.full::after{border-radius:0}
 .r-32{aspect-ratio:3/2}.r-45{aspect-ratio:4/5}.r-11{aspect-ratio:1}.r-169{aspect-ratio:16/9}.r-219{aspect-ratio:21/9}
 
 /* Mosaic */
@@ -414,8 +418,7 @@ dialog.tr-dlg::backdrop{background:rgba(3,7,16,.82);-webkit-backdrop-filter:blur
 .m0{margin:0}.m14{margin:14px 0 0}.m16{margin-top:16px}
 
 /* 13 · REDUCED MOTION ------------------------------------------------------ */
-@media (prefers-reduced-motion:reduce){
-  @view-transition{navigation:none}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}
   html{scroll-behavior:auto}
   *,*:before,*:after{transition-duration:.01ms!important}
   .hero .lb,.hero .ld,.hero .cta,.bgp.cv,.lt,.tr-box,.lbx img,.pp .sm span.st2{animation:none}

@@ -4,7 +4,7 @@ const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelecto
 const WA=document.body.dataset.wa||'';const TX={rsvp:'Hi Kandela, I’d like to RSVP for a gathering. My name is ',partner:'Hi Kandela, I’d like to talk about working together. I run ',concern:'Hi, I’d like to raise a concern. ',hello:'Hi Kandela, I have a question: '};
 const wa=t=>'https://wa.me/'+WA+'?text='+encodeURIComponent(t);
 const SOC={instagram:'https://www.instagram.com/kandelakulture/',tiktok:'https://www.tiktok.com/@kandelakulture'};
-function wire(){$('[data-wa]').forEach(a=>{a.href=wa(TX[a.dataset.wa]||TX.hello);a.target='_blank';a.rel='noopener'});$('[data-social]').forEach(a=>{a.href=SOC[a.dataset.social]||'#';a.target='_blank';a.rel='noopener me nofollow'})}
+function wire(){$$('[data-wa]').forEach(a=>{a.href=wa(TX[a.dataset.wa]||TX.hello);a.target='_blank';a.rel='noopener'});$$('[data-social]').forEach(a=>{a.href=SOC[a.dataset.social]||'#';a.target='_blank';a.rel='noopener me nofollow'})}
 function menu(){const m=$('#menu'),b=$('#mb'),x=$('#mx');if(!m||!b||m.dataset.on)return;m.dataset.on=1;
 const shut=back=>{m.classList.remove('open');m.setAttribute('aria-hidden','true');m.setAttribute('inert','');b.setAttribute('aria-expanded','false');document.body.classList.remove('nolock');if(back)b.focus()};
 b.addEventListener('click',()=>{const r=b.getBoundingClientRect();m.style.setProperty('--mx',(r.left+r.width/2)+'px');m.style.setProperty('--my',(r.top+r.height/2)+'px');$$('.g>div',m).forEach((d,i)=>d.style.setProperty('--i',i));m.removeAttribute('inert');m.setAttribute('aria-hidden','false');m.classList.add('open');b.setAttribute('aria-expanded','true');document.body.classList.add('nolock');setTimeout(()=>x.focus(),80)});
@@ -25,7 +25,7 @@ function reveal(){const els=$$('.rv:not(.in)');if(rm||!('IntersectionObserver'in
 function header(){const h=$('header');if(!h||h.dataset.on)return;h.dataset.on=1;const u=()=>h.classList.toggle('sc',scrollY>8);addEventListener('scroll',u,{passive:true});u()}
 function current(){const here=window.__preview?location.hash:(location.pathname.split('/').pop()||'index.html');$$('header nav a:not(.bt)').forEach(a=>{a.removeAttribute('aria-current');if(a.getAttribute('href')===here)a.setAttribute('aria-current','page')})}
 
-function loaded(){$('.im img:not([data-w])').forEach(i=>{i.dataset.w=1;const d=()=>i.classList.add('ld');i.complete&&i.naturalWidth?d():(i.addEventListener('load',d),i.addEventListener('error',d))})}
+function loaded(){$$('.im img:not([data-w])').forEach(i=>{i.dataset.w=1;const d=()=>i.classList.add('ld');i.complete&&i.naturalWidth?d():(i.addEventListener('load',d),i.addEventListener('error',d))})}
 let items=[],cur=0,dlg=null;
 function buildLb(){
   if(dlg)return dlg;
@@ -68,11 +68,11 @@ function initLb(){
 function gallery(){
   const g=$('#gal');if(!g||g.dataset.on)return;g.dataset.on=1;
   const n=$('#gal-n');
-  $('.chips [data-f]').forEach(b=>b.addEventListener('click',()=>{
+  $$('.chips [data-f]').forEach(b=>b.addEventListener('click',()=>{
     const f=b.dataset.f;
-    $('.chips [data-f]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
+    $$('.chips [data-f]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
     let c=0;
-    $('figure',g).forEach(m=>{
+    $$('figure',g).forEach(m=>{
       const tags=(m.dataset.tags||'').split(' ');
       const ok=f==='all'||tags.includes(f);
       m.hidden=!ok;
@@ -86,7 +86,7 @@ function initChooser(){const c=$('#chooser');if(!c||c.dataset.on)return;c.datase
 const D={f2f:{h:'Then we organise something side by side.',p:'You talk, meet and catch up. What you haven’t had is a shared task, so we give you one.',ex:['A build day for a community space','Cooking for forty, together','A walk with a purpose','A day of volunteering'],t:'The shared effort becomes a story you tell together. That is the third context.'},
 sbs:{h:'Then we organise time face to face.',p:'You work, dance or play together. What you haven’t had is unhurried time to talk, so we make some.',ex:['A long table with no agenda','A slow evening of stories','A walk and talk in pairs','A quiet supper after a hard week'],t:'The conversations come back into the work with you. That is the third context.'},
 both:{h:'Then we start with the one you have least of.',p:'We begin with a short conversation about how your people really spend time together, then alternate: one side by side, one face to face.',ex:['Alternate month by month','Keep a steady Kandela rhythm','Add a third setting when you are ready'],t:'Each new experience adds to what the group shares.'}};
-c.addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b)return;$('button[data-k]',c).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));const d=D[b.dataset.k];if(!d)return;out.textContent='';const h=document.createElement('h3'),p=document.createElement('p'),ul=document.createElement('ul'),t=document.createElement('p');h.textContent=d.h;p.textContent=d.p;ul.className='ls';d.ex.forEach(s=>{const li=document.createElement('li');li.textContent=s;ul.appendChild(li)});t.className='third';t.textContent=d.t;out.append(h,p,ul,t)})}
+c.addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b)return;$$('button[data-k]',c).forEach(x=>x.setAttribute('aria-pressed',String(x===b)));const d=D[b.dataset.k];if(!d)return;out.textContent='';const h=document.createElement('h3'),p=document.createElement('p'),ul=document.createElement('ul'),t=document.createElement('p');h.textContent=d.h;p.textContent=d.p;ul.className='ls';d.ex.forEach(s=>{const li=document.createElement('li');li.textContent=s;ul.appendChild(li)});t.className='third';t.textContent=d.t;out.append(h,p,ul,t)})}
 
 function initTranslate(){const dlg=$('#tr-dlg');if(!dlg||dlg.dataset.on)return;dlg.dataset.on=1;
 const pathEl=$('#tr-path'),sel=$('#tr-sel'),form=$('#tr-form'),orig=$('#tr-orig'),x=$('#tr-close');

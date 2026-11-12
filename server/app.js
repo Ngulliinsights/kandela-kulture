@@ -171,7 +171,7 @@ function createApp(opts = {}) {
     if (!ok(file) && ok(file + '.html')) file += '.html';
     if (!ok(file)) { const proto = path.resolve(__dirname, '..', 'prototypes', '.' + path.sep + rel); if (ok(proto)) file = proto; }
     if (!ok(file)) { const nf = path.join(root, '404.html'); return send(res, 404, ok(nf) ? fs.readFileSync(nf) : 'Not found', ok(nf) ? MIME['.html'] : 'text/plain'); }
-    const ext = path.extname(file), cache = ext === '.html' ? 'no-cache' : ext === '.woff2' ? 'public, max-age=31536000, immutable' : 'public, max-age=86400';
+    const ext = path.extname(file), cache = ext === '.woff2' ? 'public, max-age=31536000, immutable' : 'no-cache';
     send(res, 200, req.method === 'HEAD' ? '' : fs.readFileSync(file), MIME[ext] || 'application/octet-stream', { 'cache-control': cache });
   }
 
