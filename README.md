@@ -37,7 +37,7 @@ To switch it all off, remove the `creative.js` script tag. Optional runtime chec
 
 ## Add or change gatherings
 
-Edit `data/events.json` (id, title, date, time, area, bring, access, host, cap). Event pages and the gatherings list in `public/` are static, so ask the builder to regenerate them, or edit the HTML. The API reads `events.json` directly for capacity and dates.
+Edit `data/events.json` (id, title, date, time, area, bring, access, host, cap, line). `line` is the closing sentence on the event page (`public/g-<id>.html`); keep the two in sync when regenerating. Event pages and the gatherings list in `public/` are static, so ask the builder to regenerate them, or edit the HTML. The API reads `events.json` directly for capacity and dates.
 
 ## Endpoints
 

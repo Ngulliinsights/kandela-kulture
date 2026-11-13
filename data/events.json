@@ -9,7 +9,8 @@
     "access": "Step-free, seating available, normal lighting",
     "host": "Your host, first name only",
     "cap": 30,
-    "sample": true
+    "sample": true,
+    "line": "Take the long way. It’s where the real answers are."
   },
   {
     "id": "build-day",
@@ -21,6 +22,7 @@
     "access": "Some lifting; seated tasks available",
     "host": "Your host, first name only",
     "cap": 20,
-    "sample": true
+    "sample": true,
+    "line": "Build something together. Even a wobbly shelf holds a friendship up."
   }
 ]
