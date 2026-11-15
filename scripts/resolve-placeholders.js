@@ -144,7 +144,7 @@ for (const file of fs.readdirSync(pub).filter(f => f.endsWith('.html'))) {
   const manifest = {
     name: 'Kandela Kulture',
     short_name: 'Kandela',
-    description: 'Same people. Different room.',
+    description: 'Same people. Different light.',
     start_url: '/index.html',
     display: 'standalone',
     background_color: '#060E1E',

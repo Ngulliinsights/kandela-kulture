@@ -10,7 +10,7 @@ async function load(file){const errs=[];const vc=new VirtualConsole();vc.on('jsd
  await new Promise(r=>setTimeout(r,500));return{dom,w:dom.window,d:dom.window.document,errs}}
 (async()=>{
  let t=await load('index.html');ok(t.errs.length===0,'index.html: no script errors '+t.errs.join('|'));
- const h=t.d.querySelector('h1');ok(h.getAttribute('aria-label')==='Same people. Different room.'&&h.querySelectorAll('.lt').length===4,'h1 split into igniting words, aria-label keeps the text');
+ const h=t.d.querySelector('h1');ok(h.getAttribute('aria-label')==='Same people. Different light.'&&h.querySelectorAll('.lt').length===4,'h1 split into igniting words, aria-label keeps the text');
  ok(t.d.querySelector('#river').dataset.on==='1','hero canvas initialised');ok(t.d.documentElement.classList.contains('js'),'js class set');
  t.d.querySelector('#mb').click();await new Promise(r=>setTimeout(r,120));ok(t.d.querySelector('#menu').classList.contains('open')&&!t.d.querySelector('#menu').hasAttribute('inert'),'menu opens, becomes interactive');const svg=t.d.querySelector('#menu .cons');ok(svg&&svg.querySelectorAll('a').length>=20&&svg.getAttribute('aria-hidden')==='true','constellation menu built with '+(svg&&svg.querySelectorAll('a').length)+' nodes, hidden from assistive tech');
  t=await load('lighting.html');ok(t.errs.length===0,'lighting.html: no script errors '+t.errs.join('|'));
