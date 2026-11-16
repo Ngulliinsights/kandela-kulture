@@ -7,12 +7,13 @@
  *   data-events-url="/api/events"   treat dates in that JSON (array of {date:"YYYY-MM-DD"}) as "open" days
  *   data-beacon-url="/api/wa-click" send an anonymous click count (kind only) so the server can switch on API handling
  *                                   at a volume threshold. Same origin only unless the server allows CORS for it.
- * The number can also come from <meta name="kk-wa-number" content="..."> (and kk-wa-events-url).
+ * The number can also come from <meta name="kk-wa-number" content="..."> (and kk-wa-events-url, kk-wa-beacon-url).
  *
  * WHAT IT DOES
  *  1. Turns "Message us on WhatsApp" style links/buttons into wa.me links with a page-aware prefilled message.
  *     Opt out per element with data-wa="off". Force-wire any element with data-wa (data-wa="stop" sends "STOP").
  *     Per-element overrides: data-wa-text="..." or data-wa-event="Supper and a walk, 14 Nov".
+ *     Links that point to another site (or mailto:/tel:) are never rewritten unless they carry data-wa.
  *  2. Adds prefilled text to existing wa.me links that have none. Group/channel links are left alone.
  *  3. RSVP page: adds "Continue on WhatsApp instead", built live from the form (gathering, first name, 18+).
  *     It never puts the phone number or the access-needs text in the message.
@@ -30,7 +31,7 @@
   const meta = n => { const m = doc.querySelector(`meta[name="${n}"]`); return m ? m.content : ''; };
   const opt = (attr, m) => (script && script.getAttribute(attr)) || meta(m) || '';
 
-  // ---- config (edit here) ----
+  // ---- config (edit here; keep HINT in step with HOURS) ----
   const HOURS = { days: [1, 2, 3, 4, 5], from: 9, to: 18, tz: 'Africa/Nairobi' };
   const HINT = "We're away right now. Send your message and we'll reply on the next working day (Mon-Fri, 9:00-18:00 EAT, plus gathering days).";
   const HELLO = 'Hello Kandela Kulture, ';
@@ -50,12 +51,15 @@
     faq: HELLO + 'I have a question I could not find in the FAQ.',
     stop: 'STOP',
   });
+  const RESERVED = new Set(['default', 'stop']);   // never chosen from a page name
 
   // ---- helpers ----
-  // Accepts 0712 345 678, +254 712 345 678, 00254..., returns digits for wa.me or ''.
+  // Accepts 0712 345 678, +254 712 345 678, 254 0712..., 00254...; returns digits for wa.me or ''.
   const toWa = raw => {
     let d = String(raw || '').replace(/\D/g, '');
-    if (d.startsWith('00')) d = d.slice(2); else if (d.startsWith('0')) d = '254' + d.slice(1);
+    if (d.startsWith('00')) d = d.slice(2);
+    else if (d.startsWith('0')) d = '254' + d.slice(1);
+    else if (d.startsWith('2540')) d = '254' + d.slice(4);
     return /^\d{10,15}$/.test(d) ? d : '';
   };
   const clean = (s, n = 120) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim().slice(0, n);
@@ -67,12 +71,13 @@
   const waUrl = text => `https://wa.me/${NUMBER}?text=${encodeURIComponent(clean(text, 500))}`;
   const isWaHref = h => /^(https?:\/\/)?(wa\.me|api\.whatsapp\.com|chat\.whatsapp\.com|web\.whatsapp\.com|whatsapp\.com)\b|^whatsapp:/i.test(h || '');
   const isGroupHref = h => /chat\.whatsapp\.com|whatsapp\.com\/channel/i.test(h || '');
+  const otherSite = a => { try { return new URL(a.href).origin !== location.origin; } catch { return false; } };
 
   const pageKey = (() => {
     const forced = doc.body && doc.body.dataset.waPage;
     if (forced) return forced;
     const base = (location.pathname.split('/').pop() || '').replace(/\.html?$/i, '');
-    return base && base !== 'index' && MSG[base] ? base : 'default';
+    return base && base !== 'index' && !RESERVED.has(base) && MSG[base] ? base : 'default';
   })();
   const textFor = el => {
     const d = el.dataset;
@@ -100,21 +105,23 @@
       const m = /^(?:https?:\/\/)?wa\.me\/(\d+)(\?.*)?$/i.exec(href);
       if (m && !forced) {                                   // existing wa.me link: add context text only if missing
         if (!/[?&]text=/.test(href)) el.href = `https://wa.me/${m[1]}?text=${encodeURIComponent(clean(textFor(el), 500))}`;
-      } else if (!isWaHref(href) || forced) {
-        el.href = waUrl(textFor(el));
-      } else return;                                        // some other WhatsApp URL: leave it
+      } else if (forced || (!isWaHref(href) && !otherSite(el))) {
+        el.href = waUrl(textFor(el));                       // empty, "#" or same-site fallback link: upgrade it
+      } else return;                                        // another WhatsApp URL or another site: leave it
       external(el);
-    } else {
-      el.addEventListener('click', e => { e.preventDefault(); window.open(waUrl(textFor(el)), '_blank', 'noopener'); });
-      if (el.tagName === 'BUTTON' && !el.getAttribute('type')) el.type = 'button';
+    } else if (el.tagName === 'BUTTON' && !el.getAttribute('type')) {
+      el.type = 'button';
     }
     el.setAttribute('data-kk-wa', el.dataset.wa || pageKey);
     wired.push(el);
   }
 
+  // One delegated handler: opens non-link elements, then reports the click (PII-free).
+  // Skipped when something earlier (e.g. the RSVP validation) already cancelled the click.
   doc.addEventListener('click', e => {
     const el = e.target.closest && e.target.closest('[data-kk-wa]');
     if (!el || e.defaultPrevented) return;
+    if (el.tagName !== 'A') { e.preventDefault(); window.open(waUrl(textFor(el)), '_blank', 'noopener'); }
     const kind = el.getAttribute('data-kk-wa');
     doc.dispatchEvent(new CustomEvent('kk:wa', { detail: { kind } }));
     if (BEACON && navigator.sendBeacon) {                   // anonymous count only (no number, no text): feeds the server's volume trigger
@@ -161,8 +168,14 @@
     }
     if (!st) { st = doc.createElement('p'); st.className = 'kk-wa-status'; st.setAttribute('role', 'status'); st.hidden = true; a.insertAdjacentElement('afterend', st); }
     external(a); a.setAttribute('data-kk-wa', 'rsvp');
-    const update = () => { a.href = waUrl(rsvpText(form)); };
-    form.addEventListener('input', update); form.addEventListener('change', update); update();
+    const update = () => {
+      a.href = waUrl(rsvpText(form));
+      if (!st.hidden && !rsvpProblem(form)) st.hidden = true;   // clear the nudge once the form is fixed
+    };
+    form.addEventListener('input', update);
+    form.addEventListener('change', update);
+    form.addEventListener('reset', () => setTimeout(update));   // after the browser has cleared the fields
+    update();
     a.addEventListener('click', e => {
       const p = rsvpProblem(form);
       if (p) { e.preventDefault(); st.textContent = p.msg; st.hidden = false; if (p.el.focus) p.el.focus(); return; }
@@ -171,34 +184,42 @@
     watchWaitlist(form);
   }
   function waitlistLink(form) {
-    const ev = eventLabel(form), a = doc.createElement('a');
+    const a = doc.createElement('a'), ev = eventLabel(form);
     a.textContent = 'Join the waiting list on WhatsApp'; external(a); a.setAttribute('data-kk-wa', 'waitlist');
-    const build = () => waUrl(`${HELLO}this gathering is full. I'd like to join the waiting list${eventLabel(form) || ev ? ` for "${eventLabel(form) || ev}"` : ''}.`);
+    const build = () => { const l = eventLabel(form) || ev; return waUrl(`${HELLO}this gathering is full. I'd like to join the waiting list${l ? ` for "${l}"` : ''}.`); };
     a.href = build(); a.addEventListener('click', () => { a.href = build(); });
     return a;
   }
   // The server's "full" error says "Message us on WhatsApp to join the waiting list": give it a real link.
   function watchWaitlist(form) {
     const host = form.closest('main') || form.parentElement || form;
+    let queued = false;
     const scan = () => {
+      queued = false;
       const w = doc.createTreeWalker(host, NodeFilter.SHOW_TEXT), hits = [];
       for (let n; (n = w.nextNode());) {
         const el = n.parentElement;
-        if (!el || el.dataset.kkWl || el.closest('[data-kk-wa], script, style')) continue;
+        if (!el || el.dataset.kkWl || el.closest('[data-kk-wa], script, style, noscript')) continue;
         if (/\bfull\b/i.test(n.nodeValue) && /waiting list/i.test(n.nodeValue)) hits.push(el);
       }
       hits.forEach(el => { el.dataset.kkWl = '1'; el.append(' ', waitlistLink(form)); });
     };
-    new MutationObserver(scan).observe(host, { childList: true, subtree: true, characterData: true });
+    new MutationObserver(() => { if (!queued) { queued = true; requestAnimationFrame(scan); } })   // batch bursts of DOM changes
+      .observe(host, { childList: true, subtree: true, characterData: true });
+    scan();
   }
 
   // ---- 5: office hours ----
   let gatheringDays = new Set(), hint = null;
+  const clock = new Intl.DateTimeFormat('en-GB', { timeZone: HOURS.tz, hourCycle: 'h23', hour: 'numeric', year: 'numeric', month: '2-digit', day: '2-digit' });
   function nairobi() {
     const p = {};
-    new Intl.DateTimeFormat('en-GB', { timeZone: HOURS.tz, weekday: 'short', hour: 'numeric', hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit' })
-      .formatToParts(new Date()).forEach(x => { p[x.type] = x.value; });
-    return { wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday), hour: Number(p.hour), ymd: `${p.year}-${p.month}-${p.day}` };
+    clock.formatToParts(new Date()).forEach(x => { p[x.type] = x.value; });
+    return {
+      wd: new Date(Date.UTC(+p.year, +p.month - 1, +p.day)).getUTCDay(),   // 0 = Sunday; no locale-dependent weekday names
+      hour: Number(p.hour) % 24,
+      ymd: `${p.year}-${p.month}-${p.day}`,
+    };
   }
   const isOpen = () => { const n = nairobi(); return gatheringDays.has(n.ymd) || (HOURS.days.includes(n.wd) && n.hour >= HOURS.from && n.hour < HOURS.to); };
   function updateHint() {
@@ -212,13 +233,14 @@
   }
   async function loadDays() {
     if (!EVENTS_URL) return;
+    const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 4000);
     try {
-      const r = await fetch(EVENTS_URL, { credentials: 'omit' });
+      const r = await fetch(EVENTS_URL, { credentials: 'omit', signal: ctl.signal });
       if (!r.ok) return;
       const list = await r.json();
       gatheringDays = new Set((Array.isArray(list) ? list : []).map(e => e && e.date).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d)));
-      updateHint();
-    } catch { /* offline or blocked: fall back to weekday hours */ }
+    } catch { /* offline, blocked or slow: fall back to weekday hours */ }
+    finally { clearTimeout(timer); }
   }
 
   // ---- init ----
@@ -229,9 +251,9 @@
     candidates().forEach(wire);
     const form = doc.querySelector('form[data-wa-form]') || [...doc.forms].find(f => field(f, 'phone') && field(f, 'event'));
     if (form) wireRsvp(form);
-    updateHint(); loadDays();
+    loadDays().then(updateHint);                            // first paint of the note waits for gathering days, so it never flashes wrongly
     doc.addEventListener('visibilitychange', () => { if (!doc.hidden) updateHint(); });
   }
-  window.KandelaWA = Object.freeze({ link: text => waUrl(text || MSG[pageKey]) });
+  window.KandelaWA = Object.freeze({ link: text => waUrl(text || MSG[pageKey] || MSG.default) });
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', init); else init();
 })();
