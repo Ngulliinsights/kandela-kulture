@@ -148,6 +148,8 @@
     return null;
   }
   function wireRsvp(form) {
+    if (form.hasAttribute('data-kk-wa-form-wired')) return;
+    form.setAttribute('data-kk-wa-form-wired', '1');
     let a = form.querySelector('[data-wa-rsvp]'), st = form.querySelector('[data-wa-status]');
     if (!a) {
       const subs = form.querySelectorAll('[type="submit"], button:not([type])'), last = subs[subs.length - 1];
@@ -220,7 +222,10 @@
   }
 
   // ---- init ----
+  let inited = false;
   function init() {
+    if (inited) return;
+    inited = true;
     candidates().forEach(wire);
     const form = doc.querySelector('form[data-wa-form]') || [...doc.forms].find(f => field(f, 'phone') && field(f, 'event'));
     if (form) wireRsvp(form);
