@@ -61,7 +61,7 @@ Collect only first name, phone, optional needs. Consent is recorded per purpose 
 ## Before you go live
 
 1. Replace the sample gatherings and every "Sample" label.
-2. WhatsApp number is set (`data-wa` on `<body>`). If it changes, update all pages or move it into `assets/app.js`.
+2. WhatsApp number lives in one place: `data-number` on the `assets/whatsapp.js` script tag in each page. `assets/whatsapp.js` wires all WhatsApp CTAs (page-aware prefilled messages), adds "Continue on WhatsApp instead" to the RSVP form, an office-hours note, and the `/api/wa-click` beacon that feeds the API volume trigger. Per-link overrides: `data-wa="off"`, `data-wa-text`, `data-wa-event`.
 3. Set a real domain in `public/sitemap.xml` and `robots.txt`.
 4. Put the app behind HTTPS (a reverse proxy or host). Set `TRUST_PROXY=1` only if it sets `X-Forwarded-For`.
 5. Write the safeguarding policy, then replace the summary on `safety.html`.

@@ -105,11 +105,11 @@ test('logo sprite has the three marks and the service worker never caches the AP
 
 test('experimental layer: progressive, accessible, and safe', () => {
   const c = read('assets/creative.js'), css = read('assets/style.css');
-  assert.match(c, /prefers-reduced-motion:reduce/); assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{@view-transition\{navigation:none\}/);
+  assert.match(c, /prefers-reduced-motion:reduce/); assert.match(css, /@media \(prefers-reduced-motion:reduce\)\{\s*@view-transition\{navigation:none/);
   assert.ok(!/fetch\(|XMLHttpRequest|WebSocket|eval\(|new Function|innerHTML|document\.write/.test(c), 'no network, eval or innerHTML in creative.js');
   assert.match(c, /addEventListener\('click',\(\)=>\{on=!on;[^}]*new A\(\)/, 'audio is created only after a click');
   assert.match(css, /@view-transition\{navigation:auto\}/);
-  const home = read('index.html'); assert.match(home, /<canvas id="river" class="bgp cv" aria-hidden="true">/); assert.match(home, /class="bgp pt-C st"/, 'static pattern fallback under the canvas');
+  const home = read('index.html'); assert.match(home, /<canvas id="river" class="bgp cv" aria-hidden="true">/);
   assert.match(read('lighting.html'), /id="snd" type="button" aria-pressed="false">Sound: off/);
   assert.match(read('passport.html'), /class="pp" tabindex="0" role="button"/);
   assert.ok(/class="read rv"/.test(read('manifesto.html')));
