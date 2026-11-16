@@ -5,6 +5,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { Store } = require('./store');
 const { createWhatsApp } = require('./wa-api');
+const mailer = require('./mailer');
 
 const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.svg': 'image/svg+xml', '.json': 'application/json', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webmanifest': 'application/manifest+json' };
 const CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'";
@@ -163,6 +164,13 @@ function createApp(opts = {}) {
     store.append('rsvps', rec);
     consent(phone, 'event-reminders', d.remind === true ? 'grant' : 'decline', source);
     consent(phone, 'future-gatherings', d.future === true ? 'grant' : 'decline', source);
+    // Send admin notification email (non-blocking)
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
+    if (adminEmail) {
+      const subject = `New RSVP: ${name} for ${ev.title}`;
+      const text = `New RSVP received\n\nName: ${name}\nPhone: ${phone}\nEvent: ${ev.title}\nNeeds: ${needs || 'None'}\nSource: ${source}\nTime: ${rec.ts}`;
+      mailer.send(adminEmail, subject, text).catch(() => {});
+    }
     return { code: 201, id: rec.id, ev, phone };
   }
   const wa = createWhatsApp({ store, cfg, events, normPhone, registerRsvp, consent, consentState, makeLimiter, clean, fetch: opts.fetch });
@@ -287,6 +295,13 @@ function createApp(opts = {}) {
       if (!kind || !name || !contact || !message) return send(res, 422, { error: 'Please complete the form.' });
       const rec = { id: store.id(), ts, kind, name, org, contact: normPhone(contact) || contact, message };
       store.append('enquiries', rec);
+      // Send admin notification email (non-blocking)
+      const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
+      if (adminEmail) {
+        const subject = `New enquiry: ${kind} from ${name}`;
+        const text = `New enquiry received\n\nKind: ${kind}\nName: ${name}\nOrganisation: ${org || 'None'}\nContact: ${rec.contact}\nMessage: ${message}\nTime: ${ts}`;
+        mailer.send(adminEmail, subject, text).catch(() => {});
+      }
       return send(res, 201, { ok: true, id: rec.id });
     }
     return send(res, 404, { error: 'Not found.' });

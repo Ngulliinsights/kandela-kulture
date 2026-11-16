@@ -1,9 +1,12 @@
 'use strict';
 const { createApp } = require('./app');
+const mailer = require('./mailer');
 
 const port = Number(process.env.PORT || 3000);
 const app = createApp();
 const { server, cfg } = app;
+
+mailer.init();
 
 if (!cfg.adminToken) console.warn('ADMIN_TOKEN is not set: admin endpoints are disabled.');
 else if (cfg.adminToken.length < 24) console.warn('ADMIN_TOKEN is short: use at least 24 random characters.');
