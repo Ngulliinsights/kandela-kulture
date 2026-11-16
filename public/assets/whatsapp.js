@@ -145,7 +145,7 @@
     let t = HELLO + "I'd like to save a place" + (ev ? ` at "${ev}"` : '') + '.';
     if (name) t += ` My name is ${name}.`;
     if (age && age.checked) t += " I'm 18 or older.";
-    if (needs && clean(needs.value, 5)) t += ' I have access needs I would like to talk through.';   // the details stay out of the URL
+    if (needs && clean(needs.value, 5)) t += ` I have access needs: ${clean(needs.value, 200)}.`;
     return t;
   }
   function rsvpProblem(form) {
