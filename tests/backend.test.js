@@ -50,7 +50,8 @@ test('RSVP is stored with consent records, and is idempotent', async () => {
     const cs = t.app.store.read('consents'); assert.deepEqual(cs.map(c => [c.purpose, c.action]), [['event-reminders', 'grant'], ['future-gatherings', 'decline']]);
     assert.ok(cs.every(c => c.notice && c.ts));
     const again = await post(t.base, '/api/rsvp', { ...good, phone: '+254712345678' }); const j = await again.json();
-    assert.equal(again.status, 200); assert.equal(j.already, true); assert.equal(t.app.store.read('rsvps').length, 1);
+    assert.equal(again.status, 201); assert.equal(j.ok, true); assert.equal(j.already, undefined); assert.equal(t.app.store.read('rsvps').length, 1);
+    assert.equal(t.app.store.read('consents').length, 2);   // duplicate sign-up writes nothing new
     assert.equal((await (await fetch(t.base + '/api/events')).json())[0].spots, 29);
   } finally { await t.close(); }
 });
@@ -109,7 +110,7 @@ test('STOP withdraws consent and never reveals whether a number exists', async (
     const known = await post(t.base, '/api/stop', { phone: '0712345678' }), unknown = await post(t.base, '/api/stop', { phone: '0799999999' });
     assert.equal(known.status, 200); assert.deepEqual(await known.json(), await unknown.json());
     const last = t.app.store.read('consents').filter(c => c.phone === '+254712345678'); assert.equal(last.at(-1).action, 'withdraw'); assert.equal(last.at(-2).action, 'withdraw');
-    assert.equal(t.app.store.read('consents').filter(c => c.phone === '+254799999999').length, 2);
+    assert.equal(t.app.store.read('consents').filter(c => c.phone === '+254799999999').length, 0);   // unknown numbers leave no trace
   } finally { await t.close(); }
 });
 
@@ -155,9 +156,9 @@ test('retention purge: removes old data, keeps opted-in contacts without their n
     await post(t.base, '/api/rsvp', { ...good, phone: '0711 111 111', needs: 'vegetarian', future: true });
     await post(t.base, '/api/rsvp', { ...good, phone: '0722 222 222', needs: 'step-free', future: false });
     t.setNow(Date.parse('2026-12-01T10:00:00Z')); let r = await (await fetch(t.base + '/api/admin/purge', { method: 'POST', headers: admin })).json();
-    assert.deepEqual(r, { removed: 0, stripped: 0 }); assert.equal(t.app.store.read('rsvps').length, 2);
+    assert.deepEqual(r, { removed: 0, stripped: 0, enquiriesRemoved: 0, waitlistRemoved: 0 }); assert.equal(t.app.store.read('rsvps').length, 2);
     t.setNow(Date.parse('2027-03-01T10:00:00Z')); r = await (await fetch(t.base + '/api/admin/purge', { method: 'POST', headers: admin })).json();
-    assert.deepEqual(r, { removed: 1, stripped: 1 });
+    assert.deepEqual(r, { removed: 1, stripped: 1, enquiriesRemoved: 0, waitlistRemoved: 0 });
     const rs = t.app.store.read('rsvps'); assert.equal(rs.length, 1); assert.equal(rs[0].phone, '+254711111111'); assert.equal(rs[0].needs, '');
     assert.ok(t.app.store.read('consents').every(c => c.phone === '+254711111111'));
   } finally { await t.close(); }
@@ -186,6 +187,23 @@ test('path traversal cannot read files outside public/', async () => {
 
 test('unknown API routes 404 and GET on write routes is not allowed', async () => {
   const t = await boot(); try {
-    assert.equal((await fetch(t.base + '/api/nothing')).status, 404); assert.equal((await fetch(t.base + '/api/rsvp')).status, 404);
+    assert.equal((await fetch(t.base + '/api/nothing')).status, 404); assert.equal((await fetch(t.base + '/api/rsvp')).status, 405);
   } finally { await t.close(); }
+});
+
+test('wa-click counts anonymously and wa-status reports the mode', async () => {
+  const t = await boot(); try {
+    assert.equal((await post(t.base, '/api/wa-click', { kind: 'rsvp' })).status, 204);
+    const st = await (await fetch(t.base + '/api/admin/wa-status', { headers: admin })).json();
+    assert.equal(st.mode, 'auto'); assert.equal(st.chats30d, 1); assert.equal(st.active, false);
+    assert.equal((await fetch(t.base + '/api/admin/wa-status')).status, 401);
+  } finally { await t.close(); }
+});
+
+test('wa webhook is closed when mode is off and unverified without a token', async () => {
+  const t = await boot(); try {
+    assert.equal((await fetch(t.base + '/api/wa/webhook')).status, 403);          // GET verify needs WA_VERIFY_TOKEN
+    assert.equal((await fetch(t.base + '/api/wa/webhook', { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{}' })).status, 401);   // POST needs a valid signature
+  } finally { await t.close(); }
+  const off = await boot({ waMode: 'off' }); try { assert.equal((await fetch(off.base + '/api/wa/webhook')).status, 404); } finally { await off.close(); }
 });

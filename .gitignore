@@ -4,3 +4,12 @@ data/*.jsonl
 *.log
 .DS_Store
 Thumbs.db
+
+# One-off dev/migration scripts (kept locally, not part of the site or backend)
+scripts/apply-copy.js
+scripts/apply-copy-2.js
+scripts/integrate.js
+scripts/resolve-placeholders.js
+scripts/strip-c2pa.js
+scripts/translate.js
+scripts/refine-to-webp.py

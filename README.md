@@ -46,10 +46,13 @@ Edit `data/events.json` (id, title, date, time, area, bring, access, host, cap, 
 | `POST /api/rsvp` | Saves a place. Validates a Kenyan number, requires 18+, records consent per purpose, ignores honeypot hits, refuses full or past events, idempotent per phone and event |
 | `POST /api/stop` | Withdraws all consent for a number; never reveals whether it exists |
 | `POST /api/enquiry` | Partner or collaborator enquiry |
+| `POST /api/wa-click` | Anonymous counter for WhatsApp CTA clicks; feeds the API volume trigger |
+| `GET`/`POST /api/wa/webhook` | Meta webhook for the WhatsApp Cloud API (`WA_MODE=api`, or `auto` past `WA_API_THRESHOLD` chats in 30 days). Verifies `X-Hub-Signature-256`, records RSVPs/STOP/REMIND/waitlist, replies via Graph API |
+| `GET /api/admin/wa-status` | WhatsApp mode, volume counters and configuration state. Needs `Authorization: Bearer ADMIN_TOKEN` |
 | `GET /api/events` | Gatherings with spots left |
 | `GET /api/admin/summary`, `/rsvps.csv` | Aggregate counts and a CSV export (formula-safe). Needs `Authorization: Bearer ADMIN_TOKEN` |
 | `GET` or `DELETE /api/admin/subject?phone=` | Subject access and erasure (leaves a hashed tombstone, no number) |
-| `POST /api/admin/purge` | Retention purge. Also `npm run purge` from cron |
+| `POST /api/admin/purge` | Retention purge (also prunes WhatsApp counters). `AUTO_PURGE=1` runs it daily in-process; `npm run purge` from cron prefers this endpoint so the store cache stays in sync |
 
 ## Data protection built in
 
@@ -58,7 +61,7 @@ Collect only first name, phone, optional needs. Consent is recorded per purpose 
 ## Before you go live
 
 1. Replace the sample gatherings and every "Sample" label.
-2. Set the WhatsApp number: `data-wa` on `<body>` in each page (digits only, e.g. 2547...), or edit `assets/app.js`.
+2. WhatsApp number is set (`data-wa` on `<body>`). If it changes, update all pages or move it into `assets/app.js`.
 3. Set a real domain in `public/sitemap.xml` and `robots.txt`.
 4. Put the app behind HTTPS (a reverse proxy or host). Set `TRUST_PROXY=1` only if it sets `X-Forwarded-For`.
 5. Write the safeguarding policy, then replace the summary on `safety.html`.
