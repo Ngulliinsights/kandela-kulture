@@ -1,9 +1,8 @@
 (function(){'use strict';
 document.documentElement.classList.add('js');
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const SOC={instagram:'https://www.instagram.com/kandelakulture/',tiktok:'https://www.tiktok.com/@kandelakulture'};
 const waNum=()=>(document.querySelector('script[data-number]')||{dataset:{}}).dataset.number||'';
-function wire(){$$('[data-social]').forEach(a=>{a.href=SOC[a.dataset.social]||'#';a.target='_blank';a.rel='noopener me nofollow'})}
+function wire(){$$('[data-social]').forEach(a=>{a.target='_blank';a.rel='noopener me nofollow'})}
 function menu(){const m=$('#menu'),b=$('#mb'),x=$('#mx');if(!m||!b||m.dataset.on)return;m.dataset.on=1;
 const shut=back=>{m.classList.remove('open');m.setAttribute('aria-hidden','true');m.setAttribute('inert','');b.setAttribute('aria-expanded','false');document.body.classList.remove('nolock');if(back)b.focus()};
 b.addEventListener('click',()=>{const r=b.getBoundingClientRect();m.style.setProperty('--mx',(r.left+r.width/2)+'px');m.style.setProperty('--my',(r.top+r.height/2)+'px');$$('.g>div',m).forEach((d,i)=>d.style.setProperty('--i',i));m.removeAttribute('inert');m.setAttribute('aria-hidden','false');m.classList.add('open');b.setAttribute('aria-expanded','true');document.body.classList.add('nolock');setTimeout(()=>x.focus(),80)});

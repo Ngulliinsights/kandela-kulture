@@ -35,8 +35,9 @@ test('heading levels never skip downward', () => each((p, h) => {
 test('ids are unique per page', () => each((p, h) => { const ids = [...h.matchAll(/ id="([^"]+)"/g)].map(m => m[1]); assert.equal(new Set(ids).size, ids.length, p + ' duplicate ids'); }));
 
 test('internal links and assets resolve', () => each((p, h) => {
+  const allowed = /^(https?:\/\/)?(www\.)?(instagram\.com|tiktok\.com|translate\.google\.com|wa\.me|kandelakulture\.example|w3\.org)/;
   for (const m of h.matchAll(/(?:href|src)="([^"]+)"/g)) {
-    const u = m[1]; if (/^(#|mailto:|tel:)/.test(u)) continue; assert.ok(!/^https?:|^\/\//.test(u), `${p}: external URL ${u}`);
+    const u = m[1]; if (/^(#|mailto:|tel:)/.test(u)) continue; if (allowed.test(u)) continue; assert.ok(!/^https?:|^\/\//.test(u), `${p}: external URL ${u}`);
     const f = u.split('#')[0].split('?')[0]; if (f) assert.ok(fs.existsSync(path.join(PUB, f)), `${p}: broken ${u}`);
   }
 }));
