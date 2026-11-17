@@ -207,3 +207,37 @@ test('wa webhook is closed when mode is off and unverified without a token', asy
   } finally { await t.close(); }
   const off = await boot({ waMode: 'off' }); try { assert.equal((await fetch(off.base + '/api/wa/webhook')).status, 404); } finally { await off.close(); }
 });
+
+test('role interest is validated and stored', async () => {
+  const t = await boot(); try {
+    const res = await post(t.base, '/api/role-interest', {
+      role: 'keeper',
+      name: 'Wanjiku Muthoni',
+      contact: '0712 345 678',
+      message: 'Ready to host a hearth in my studio.'
+    });
+    assert.equal(res.status, 201);
+    const json = await res.json();
+    assert.equal(json.ok, true);
+    assert.ok(json.id);
+
+    const recs = t.app.store.read('role-interest');
+    assert.equal(recs.length, 1);
+    assert.equal(recs[0].role, 'keeper');
+    assert.equal(recs[0].name, 'Wanjiku Muthoni');
+    assert.equal(recs[0].contact, '+254712345678');
+    assert.equal(recs[0].message, 'Ready to host a hearth in my studio.');
+
+    assert.equal((await post(t.base, '/api/role-interest', {
+      role: 'lamplighter',
+      name: 'Kofi',
+      contact: 'kofi@example.com',
+      message: 'Want to help set up gatherings'
+    })).status, 201);
+
+    assert.equal((await post(t.base, '/api/role-interest', { role: '', name: 'A', contact: '0712345678' })).status, 422);
+    assert.equal((await post(t.base, '/api/role-interest', { role: 'keeper', name: '', contact: '0712345678' })).status, 422);
+    assert.equal((await post(t.base, '/api/role-interest', { role: 'keeper', name: 'A', contact: '' })).status, 422);
+    assert.equal((await post(t.base, '/api/role-interest', { role: 'astronaut', name: 'A', contact: '0712345678' })).status, 422);
+  } finally { await t.close(); }
+});

@@ -135,3 +135,86 @@ test('typography and motion refinements', () => {
   assert.match(cr, /split\(' '\)\.forEach\(\(w,i,a\)=>\{const s=document\.createElement\('span'\);s\.className='lt'/, 'headlines animate by word, which keeps kerning');
   assert.match(read('assets/vt.js'), /pagereveal/); assert.match(read('assets/vt.js'), /prefers-reduced-motion/);
 });
+
+test('role interest page is accessible and integrates with role-interest.js', () => {
+  const h = read('role-interest.html');
+  assert.match(h, /<form[^>]*data-role-interest/);
+  assert.match(h, /<input[^>]*id="f-name"[^>]*required/);
+  assert.match(h, /<label for="f-name">/);
+  assert.match(h, /<input[^>]*id="f-contact"[^>]*required/);
+  assert.match(h, /<label for="f-contact">/);
+  assert.match(h, /<textarea[^>]*id="f-message"/);
+  assert.match(h, /<label for="f-message">/);
+  assert.match(h, /id="f-count"/);
+  assert.match(h, /id="role-out"/);
+  assert.match(h, /id="role-ok"[^>]*hidden/);
+  assert.match(h, /id="ri-banner"/);
+
+  assert.match(h, /role="radiogroup"/);
+  for (const role of ['keeper', 'lamplighter', 'flame', 'partner']) {
+    assert.match(h, new RegExp(`class="role-card"[^>]*data-role="${role}"[^>]*role="radio"`));
+  }
+
+  const js = read('assets/role-interest.js');
+  assert.ok(!/eval\(|document\.write/.test(js), 'no eval or document.write in role-interest.js');
+  assert.ok(fs.statSync(path.join(PUB, 'assets/role-interest.js')).size <= 6 * 1024, 'role-interest.js budget');
+});
+
+test('method in practice page and method-mixer integration', () => {
+  const h = read('method-examples.html');
+  assert.match(h, /id="mx-app"/);
+
+  assert.match(h, /id="mx-h1"/);
+  assert.match(h, /id="mx-h2"/);
+  assert.match(h, /id="mx-h3"/);
+  assert.match(h, /id="mx-h4"/);
+
+  assert.match(h, /<input[^>]*type="radio"[^>]*name="s"[^>]*data-t="Human knot"/);
+  assert.match(h, /<input[^>]*type="radio"[^>]*name="s"[^>]*data-t="Silent line-up"/);
+  assert.match(h, /<input[^>]*type="radio"[^>]*name="s"[^>]*data-t="Mirror walk"/);
+
+  assert.match(h, /<input[^>]*type="radio"[^>]*name="p"[^>]*data-t="Face to face → side by side"/);
+  assert.match(h, /<input[^>]*type="radio"[^>]*name="p"[^>]*data-t="Side by side → face to face"/);
+
+  assert.match(h, /<input[^>]*type="checkbox"[^>]*name="l"[^>]*data-t="Learn a skill"/);
+  assert.match(h, /<input[^>]*type="checkbox"[^>]*name="l"[^>]*data-t="Make something"/);
+  assert.match(h, /<input[^>]*type="checkbox"[^>]*name="l"[^>]*data-t="Walk with purpose"/);
+
+  assert.match(h, /id="o-s"/);
+  assert.match(h, /id="o-p"/);
+  assert.match(h, /id="o-l"/);
+  assert.match(h, /id="mx-cp"/);
+  assert.match(h, /id="mx-wa"/);
+  assert.match(h, /id="mx-st"/);
+
+  const js = read('assets/method-mixer.js');
+  assert.ok(!/eval\(|innerHTML|document\.write/.test(js), 'no eval, innerHTML, or document.write in method-mixer.js');
+  assert.ok(fs.statSync(path.join(PUB, 'assets/method-mixer.js')).size <= 4 * 1024, 'method-mixer.js budget');
+});
+
+test('flame passing ceremony structure, acts, and lineage links', () => {
+  const h = read('flame-passing.html');
+  assert.match(h, /class="fp-lineage"/);
+  assert.match(h, /Hearth 01 Nairobi/);
+
+  assert.match(h, /A qualified Keeper/);
+  assert.match(h, /A local community/);
+  assert.match(h, /A 6-month commitment/);
+
+  assert.match(h, /The flame passes hand to hand/);
+
+  assert.match(h, /Act 01/);
+  assert.match(h, /Arrival &amp; Spark/);
+  assert.match(h, /Act 02/);
+  assert.match(h, /Pivot &amp; Layer/);
+  assert.match(h, /Act 03/);
+  assert.match(h, /Commitment &amp; Toolkit/);
+
+  assert.match(h, /Weekly check-ins/);
+  assert.match(h, /Lamplighter support/);
+  assert.match(h, /Open method feedback/);
+
+  assert.match(h, /href="passport\.html"/);
+  assert.match(h, /href="keeper\.html"/);
+  assert.match(h, /href="hearths\.html#start"/);
+});
