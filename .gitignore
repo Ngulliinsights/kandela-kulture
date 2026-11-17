@@ -15,3 +15,8 @@ scripts/resolve-placeholders.js
 scripts/strip-c2pa.js
 scripts/translate.js
 scripts/refine-to-webp.py
+
+# Temporary template and doc files
+*.tmp
+template_*.txt
+public/*.new
