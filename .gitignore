@@ -20,3 +20,6 @@ scripts/refine-to-webp.py
 *.tmp
 template_*.txt
 public/*.new
+
+# Documentation files (kept locally, not part of the site)
+docs/
