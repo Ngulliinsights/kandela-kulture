@@ -220,14 +220,14 @@ test('flame passing ceremony structure, acts, and lineage links', () => {
   assert.match(h, /href="hearths\.html#start"/);
 });
 
-test('hearth and passport narrative features "home is where the hearth is"', () => {
+test('home is where the hearth is is exclusive to passport.html', () => {
   const passport = read('passport.html');
   const hearths = read('hearths.html');
   const flame = read('flame-passing.html');
 
-  // Unified saying without thematic redundancy
+  // Exclusive to passport.html, implied elsewhere without redundancy
   assert.match(passport, /Home is where the Hearth is/i);
-  assert.match(hearths, /Home is where the Hearth is/i);
-  assert.match(flame, /Home is where the Hearth is/i);
+  assert.doesNotMatch(hearths, /Home is where the Hearth is/i);
+  assert.doesNotMatch(flame, /Home is where the Hearth is/i);
 });
 
