@@ -220,23 +220,14 @@ test('flame passing ceremony structure, acts, and lineage links', () => {
   assert.match(h, /href="hearths\.html#start"/);
 });
 
-test('hearth and passport narrative conveys home away from home and belonging anywhere', () => {
+test('hearth and passport narrative features "home is where the hearth is"', () => {
   const passport = read('passport.html');
   const hearths = read('hearths.html');
   const flame = read('flame-passing.html');
 
-  // Passport assertions
+  // Unified saying without thematic redundancy
   assert.match(passport, /Home is where the Hearth is/i);
-  assert.match(passport, /home away from home/i);
-  assert.match(passport, /AT HOME WHEREVER YOU GO/i);
-
-  // Hearths assertions
   assert.match(hearths, /Home is where the Hearth is/i);
-  assert.match(hearths, /home away from home/i);
-  assert.match(hearths, /at home wherever you go/i);
-
-  // Flame-passing assertions
-  assert.match(flame, /home away from home/i);
-  assert.match(flame, /At home wherever you go/i);
+  assert.match(flame, /Home is where the Hearth is/i);
 });
 
