@@ -1,6 +1,6 @@
 # Kandela Kulture: Brand Identity Guide
 
-*Final, version 2.0. This replaces every earlier version and the mood boards. **Part A** is the identity and strategy. **Part B** is for anyone who uses the brand: partners, Hearths, volunteers, designers and press. Items marked **OPEN** are decisions still to be made.*
+*Final, version 2.1. This replaces every earlier version and the mood boards. **Part A** is the identity and strategy. **Part B** is for anyone who uses the brand: partners, Hearths, volunteers, designers and press. Items marked **OPEN** are decisions still to be made.*
 
 # Part A: The brand
 
@@ -11,14 +11,16 @@
 | **Name** | Kandela Kulture (two words; the K in Kulture is always a capital) |
 | **What we are** | Fun infrastructure for lasting bonds: a method, a community network and a set of programmes that turn first meetings into lasting relationships |
 | **The idea** | **Know people the other way.** We supply the context a group is missing, and what they do together becomes a third context only they share |
-| **Where we begin** | Dance communities, where trust already runs deep and the missing context is the lowest-hanging fruit |
+| **Tagline** | **Same people. Different light.** |
+| **Where we begin** | Dance communities, where trust already runs deep and the missing context is the lowest-hanging fruit. The method is not limited to dance |
 | **What we leave behind** | A skill, a ritual and a toolkit people can pass on |
-| **Promise** | Good company first. The rest follows. |
-| **Signature** | Join the Kulture. Light the Way. Kuna nuru gizani (there is light in the darkness) |
+| **Brand promise** | Light carried between people, so connection lasts |
+| **Everyday line** | Good company first. The rest follows. |
+| **Signature** | Light the Way. Join the Kulture. Kuna nuru gizani (there is light in the darkness) |
 
 ## 2. The core idea
 
-**People get to know each other in two ways: face to face, and side by side.** Face to face is talking, catching up, one to one. Side by side is doing: dancing, working, cooking, building, volunteering. Most groups only ever get one of the two.
+**People get to know each other in two ways: face to face, and side by side.** Face to face is talking, catching up, one to one. Side by side is doing: dancing, working, cooking, building, volunteering. Most groups only ever get one of the two. A relationship that lives in one setting is fragile, and each new setting gives it another place to live.
 
 | If your people meet... | We organise... | Examples |
 | --- | --- | --- |
@@ -28,14 +30,15 @@
 
 **The third context.** What a group does together becomes a story, a running joke, a shared effort it is proud of. That belongs to the group, and it is stronger than either of the first two contexts alone.
 
-**Not constrained to dance.** Dance is where we begin, because dance communities already share deep trust side by side. The method works for any group that knows each other one way and would like to know each other another, and a team can adopt it as a way of life: a rhythm of contexts, not a yearly away-day.
+**Not constrained to dance.** Dance is where we begin, because dance communities already share deep trust side by side. The method works for any group that knows each other one way and would like to know each other another. The first context can be a work team, a campus club, a congregation, a parents' group or a WhatsApp group. A team can adopt the method as a way of life: a rhythm of contexts, not a yearly away-day. That a rhythm beats a retreat is a design bet we will test and publish, not a fact we will quote.
 
-### Four design principles (fun infrastructure)
+### Five design principles (fun infrastructure)
 
 1. **Fun is a prerequisite.** Play lowers defences, and people learn and connect more when their guard is down.
 2. **Hosts are architects, not preachers.** A host sets the frame, gives the prompt and steps back. People drive. Nobody is lectured at.
 3. **Interaction is a must.** Every session has people doing, deciding or making. Nothing is passive.
 4. **Continuity.** Every session ends with a way to carry on: a small toolkit, a ritual or a next step the group can run on its own. We pass the flame.
+5. **Goal first.** Every session serves something the group is already trying to do: a break from routine that points the same way as its goals. Our first question is *what are you already trying to get done this year?* Our test is *would this still be worth doing if the social side were taken away?* If not, we leave it out.
 
 ### Skills that stay
 
@@ -51,14 +54,14 @@ We weave enduring skills into the fun. We start with formats that need no equipm
 
 **Rules for skills.**
 
-- Anything that carries risk (first aid, anything physical or health-related) is taught only by accredited providers. We are the cultural container and the convenor, not the certifier.
+- Anything that carries risk (first aid, anything physical or health-related) is taught only by accredited providers. We are the cultural container and the convenor, not the certifier. Kandela does not certify anyone, ever.
 - We aim to work with organisations such as St John Ambulance Kenya and the Kenya Red Cross Society. **No partnership or endorsement is claimed until it is agreed in writing.**
 - Peer support circles are peer support, not counselling. Hosts are trained, there is a referral route, and safeguarding applies.
 - Accredited partners carry the accreditation. They do not carry our duty of care, which stays ours (section 13).
 
 ### General first, then curated to the industry
 
-We begin with a universal format that works anywhere: a playful, tactile entry that gets people cooperating without small talk, a side-by-side task, a face-to-face reflection, and a toolkit to take away. Then we curate.
+We begin with a universal format that works anywhere: a playful, tactile entry that gets people cooperating without small talk, a side-by-side task, a face-to-face reflection, and a toolkit to take away. Then we curate, always to a goal the sector already has.
 
 | Sector | The pain | The fun infrastructure | What stays |
 | --- | --- | --- | --- |
@@ -94,7 +97,7 @@ The defence is the method and the evidence, not secrecy. We publish what we lear
 | Value | What it means | In practice |
 | --- | --- | --- |
 | **Pass it on** | A flame loses nothing by lighting another | We give away tools, credit contributors and train hosts to outgrow us |
-| **Point it somewhere** | Candela is light with direction | Every gathering has a purpose |
+| **Point it somewhere** | Candela is light with direction | Every gathering serves a purpose the group already has |
 | **Gather, don't spotlight** | Fires gather, spotlights isolate | Roles rotate and nobody is the star |
 | **Make it fun, make it real** | Fun lowers defences; substance makes it last | Play and a skill that stays |
 | **Serve first** | Lamplighters give before they ask | Every Hearth leaves something behind |
@@ -113,7 +116,7 @@ The defence is the method and the evidence, not secrecy. We publish what we lear
 
 ## 4. Positioning
 
-**Category.** Fun infrastructure for lasting bonds. We are not an events company, a networking club or a team-building agency, though we use events and serve teams.
+**Category.** Fun infrastructure for lasting bonds. We are not an events company, a networking club or a team-building agency, though we use events and serve teams. An event sells three hours; we sell what remains after it.
 
 **Positioning statement.** For groups that already know each other one way and would like to know each other another, Kandela Kulture supplies the missing context in a form people enjoy, and leaves them with a skill and a way to carry on, unlike one-off events that end when the room empties.
 
@@ -143,11 +146,11 @@ The defence is the method and the evidence, not secrecy. We publish what we lear
 
 | Audience | What they need | What we say |
 | --- | --- | --- |
-| **Members and their friends** | A light, easy way to know people better | "Same people. Different room." |
+| **Members and their friends** | A light, easy way to know people better | "Same people. Different light." |
 | **Hosts (Keepers)** | Confidence, craft, recognition | "You carry the light. We give you the method." |
 | **Volunteers (Lamplighters)** | A real role | "You don't need to dance. You need to turn up." |
 | **Studios, venues, organisers** | A community that holds more than one thing, so people stay | "A community that holds more than dancing keeps its dancers." |
-| **Companies and teams** | Connection that lasts, and skills that stay | "Not an away-day. A rhythm." |
+| **Companies and teams** | Connection that lasts, skills that stay, and rest that serves their goals | "Not an away-day. A rhythm." "Rest that still moves you." |
 | **Schools, NGOs, institutions** | Engagement and resilience | "Fun that leaves something behind." |
 | **Spaces and developers** | A real community in an empty room | "We seed it. They run it." |
 | **Funders and partners** | Credible, measured outcomes | "Connection you can count, reported honestly." |
@@ -157,20 +160,20 @@ The defence is the method and the evidence, not secrecy. We publish what we lear
 
 **Primary message.** Know people the other way.
 
-| Use | Line |
-| --- | --- |
-| **Invitation** | Join the Kulture. |
-| **Mission** | Light the Way. |
-| **Proverb** | Kuna nuru gizani. *(There is light in the darkness.)* Always give its meaning at first contact |
-| **The idea** | Know people the other way. |
-| **The promise** | Good company first. The rest follows. |
-| **The room** | Same people. Different room. |
-| **The ritual** | Pass the flame. |
-| **The contrast** | Spotlights isolate. Fires gather. |
-| **The name** | Candela measures light. Kandela moves it. |
-| **The rhythm** | Not an away-day. A rhythm. |
+Our lines are grouped by the job they do. Use them where they fit, and never mix families on the same surface.
 
-The first three lines are the steady signatures. The rest are campaign lines, used one angle at a time.
+| Family | Line | Where it works |
+| --- | --- | --- |
+| **Signatures** | **Light the Way.** (mission) · **Join the Kulture.** (invitation) · **Kuna nuru gizani.** *(There is light in the darkness.)* Always give its meaning at first contact | Everywhere the brand is introduced |
+| **Tagline** | **Same people. Different light.** The method, and the pun: seeing someone in a new light | Website, social posts, invitations, packaging |
+| **The idea** | Know people the other way. · More than one room. | Method page, explainers, hero sublines |
+| **The promise** | Good company first. The rest follows. | Welcome copy, invitations |
+| **The passing** | A flame you can only keep by giving away. · Lose nothing by lighting another. · Pass the flame. | Manifesto, method page, ceremony copy, Hearth rituals |
+| **The contrast** | Spotlights isolate. Fires gather. · Candela measures light. Kandela moves it. | Campaigns, press |
+| **The rhythm and the reprieve** | Not an away-day. A rhythm. · Rest that still moves you. · Step aside. Stay on course. · Off the clock. Still on course. | Proposals, HR and ESG conversations, the Teams page |
+| **Short forms** | Keep it lit. · Lit from a friend. · Pass it on. | Garment labels, packaging, tote and box copy, chapter cards |
+
+The signatures and the tagline are steady. The rest are campaign lines, used one angle at a time. Two Swahili lines are held back until a native speaker has reviewed them: *Washa. Shiriki.* (Light. Share.) and *Pamoja tunawaka.* (Together, we glow.) They stay off every surface until then.
 
 **Boilerplate, short.** Kandela Kulture builds fun infrastructure for lasting bonds: the missing context that turns first meetings into friendships, teams and communities.
 
@@ -196,7 +199,7 @@ The first three lines are the steady signatures. The rest are campaign lines, us
 
 | Do | Don't |
 | --- | --- |
-| "Same people. Different room." | "Unlock powerful networking opportunities!" |
+| "Same people. Different light." | "Unlock powerful networking opportunities!" |
 | "Bring a friend. Bring a dish." | "Don't miss out!" or "Last chance!" |
 | "Good company first. The rest follows." | "Leverage your community for synergy." |
 | "We're still testing this. Here is what we've seen." | "Proven to transform lives." |
@@ -210,7 +213,7 @@ The first three lines are the steady signatures. The rest are campaign lines, us
 | fun, play, practice, skill | gamification, engagement drivers |
 | Hearth, Gathering, Kulture | chapter, event series, fanbase |
 
-**Language rules.** Fire words (flame, spark, glow) are strong and tired: use them sparingly and prefer fresher angles (power cuts, stage directions, measurement, quiet observation). Rhymes are seasoning for merchandise and chants, not the voice. Never use terms for bodies or abilities as insults. Use the Swahili proverb as it is, with its meaning; any other Swahili needs a native speaker's review, with regional variation in mind. Claim only what we can show: no health, safety or outcome claims without evidence or an accredited provider.
+**Language rules.** Fire words (flame, spark, glow) are strong and tired: use them sparingly and prefer fresher angles (power cuts, stage directions, measurement, quiet observation). Rhymes are seasoning for merchandise and chants, not the voice. Never use terms for bodies or abilities as insults. Use the Swahili proverb as it is, with its meaning; any other Swahili needs a native speaker's review, with regional variation in mind. Claim only what we can show: no health, safety or outcome claims without evidence or an accredited provider, and no statistic or named study in client material until it has been checked at source.
 
 ## 8. Lexicon
 
@@ -350,12 +353,14 @@ A single low heartbeat, a soft resonant chime on a touch, and hand percussion an
 
 ### The arc of a session (general fun infrastructure)
 
-| Step | What happens | Why |
-| --- | --- | --- |
-| **1. Enter through play** | A playful, tactile entry that gets people cooperating without small talk | Play lowers defences, and nobody has to perform |
-| **2. Do side by side** | A shared task: cook, build, walk, rehearse, solve | Doing together builds trust faster than talking about it |
-| **3. Talk face to face** | A short reflection, often over food | The conversations come back into daily life |
-| **4. Take it with you** | A small toolkit so the group can run the session itself | Continuity: the flame is passed |
+Hosts also know the arc by four method moves: **Spark, Pivot, Layer, Pass.** Members just feel the arc.
+
+| Step | Method move | What happens | Why |
+| --- | --- | --- | --- |
+| **1. Enter through play** | Spark | A playful, tactile entry that gets people cooperating without small talk | Play lowers defences, and nobody has to perform |
+| **2. Do side by side** | Pivot | A shared task: cook, build, walk, rehearse, solve | Doing together builds trust faster than talking about it |
+| **3. Talk face to face** | Layer | A short reflection, often over food, and where it fits a second or third context | Each context shows another side of people, and the conversations come back into daily life |
+| **4. Take it with you** | Pass | A small toolkit so the group can run the session itself | Continuity: the flame is passed |
 
 If a group already has the side-by-side context (a team, a dance community), steps 1 and 2 shrink and step 3 grows. If it has the face-to-face context, the reverse.
 
@@ -374,7 +379,7 @@ Notice (a friend, a post, an invitation) then **Kindle** (a first gathering, kep
 
 ### Safety and dignity
 
-Written safeguarding and anti-harassment policies, known to everyone, with a clear reporting route. Gatherings are for people 18 and over unless a separate, supervised programme has its own consent. Accessible venues and adjustments for sensory and mobility needs. Dark-room events use LED candles only, lit exits and capacity limits. Consent for photography, filming and any record of an exchange.
+Written safeguarding and anti-harassment policies, known to everyone, with a clear reporting route. Gatherings are for people 18 and over unless a separate, supervised programme has its own consent. Accessible venues and adjustments for sensory and mobility needs. Dark-room events use LED candles only, lit exits and capacity limits. Consent for photography, filming and any record of an exchange. Volunteers are briefed, vetted where the setting requires it, and never left alone with children, patients or inmates. Service programmes in prisons, hospitals and schools need the relevant authority's written approval before any group enters, and we go only where we are invited, under the host's supervision.
 
 ## 12. Digital and social
 
@@ -399,11 +404,11 @@ Building defensibly means protecting people first, then the name, then the work.
 | **Duty of care** | Waivers reduce liability but do not remove it, and an accredited partner does not take our duty of care away | Participant waivers and informed consent for physical or skill sessions (including photography and conduct), reviewed by a Kenyan lawyer; public liability insurance for every event; venue and safety checks |
 | **Accredited delivery** | We never self-certify a risky skill | Written agreements with accredited providers before any first-aid or health-related session |
 | **Safeguarding** | People first | A written policy, a trained safeguarding lead, a clear reporting route, 18+ by default |
-| **Name and mark** | Protect before we scale | A clearance search, then filing for the name, the mark and the wordmark with the Kenya Industrial Property Institute (KIPI), with the classes confirmed by a trade mark agent |
-| **The method and materials** | An idea cannot be trademarked; the materials, the name and the licence can be protected | Open core (principles, rituals peers can replicate) and proprietary packages (curricula, host training, playbooks sold to organisations, measurement templates) |
+| **Name and mark** | Protect before we scale | A clearance search, then filing for the name, the mark, the wordmark and key programme titles with the Kenya Industrial Property Institute (KIPI), with the classes confirmed by a trade mark agent |
+| **The method and materials** | An idea cannot be trademarked; the materials, the name and the licence can be protected | Open core (principles, rituals and peer circles meant to be copied) and proprietary packages (curricula, host training, playbooks sold to organisations, measurement templates) |
 | **Partner agreements** | No handshake deals | An MoU covering scope, who delivers what, brand-use rights, liability split, data protection, revenue share, term and exit. Written permission before using any partner's name or logo |
 | **Data and images** | Kenya's Data Protection Act applies, and images are personal data | Consent per purpose, registration with the data commissioner as required, 24-hour take-down, no sale or sharing of contacts |
-| **Honest claims** | Trust is the asset | No claim of impact, accreditation or partnership that we cannot prove |
+| **Honest claims** | Trust is the asset | No claim of impact, accreditation or partnership that we cannot prove. No statistic or named study in client or investor material until checked at source |
 | **The champion** | A respected bridge between grassroots spaces and institutions (for example from public health, emergency response or community mobilisation) | A written advisory role with a clear scope, term and credit, so the work never depends on one person |
 
 ## 14. Measuring the brand and the method
@@ -412,8 +417,10 @@ Building defensibly means protecting people first, then the name, then the work.
 | --- | --- |
 | Do people understand us? | The five-second test: they say connection, light or together |
 | Is it working? | Contexts per pair, what passes between people, and whether it would have happened without us |
-| Does it continue? | Groups that run the toolkit themselves; Hearths lit by Hearths |
-| Do skills stay? | People certified by accredited partners, and follow-up use |
+| Do bonds layer? | The share of participants who meet in two or more settings within six months |
+| Does it continue? | The share of groups that run the toolkit themselves without us; Hearths lit by Hearths |
+| Is trust growing? | Change in measured trust and connection before, and at three and six months after |
+| Do skills stay? | People certified by accredited partners, how many then train others, and follow-up use |
 | Do partners trust us? | Repeat bookings, renewals and referrals |
 | Is trust intact? | Zero consent complaints; photo take-down requests answered within 24 hours |
 | Is the brand consistent? | A quarterly audit of Hearth and partner materials against this guide |
@@ -422,6 +429,7 @@ Building defensibly means protecting people first, then the name, then the work.
 
 | Decision | Owner | Needed before |
 | --- | --- | --- |
+| Confirm "Same people. Different light." as the tagline (it replaces "Different room" from version 2.0) | Founder | Any public use |
 | Rebuild the logo, icon and Hearth lockup as production masters | Designer | Print and signage |
 | Trademark clearance search and filing with KIPI | Founder and trade mark agent | Public launch |
 | Waiver, consent and insurance review | Founder and lawyer | The first physical or skill session |
@@ -431,16 +439,16 @@ Building defensibly means protecting people first, then the name, then the work.
 | Reserve social handles and set up accounts securely | Founder | The quiet phase |
 | Real photography and a consent register | Producer | The show phase |
 | Confirm the fonts and Deep Gold on screen and in print | Designer | Print |
-| Native-speaker review of any Swahili beyond the proverb | Reviewer | Public use |
+| Native-speaker review of any Swahili beyond the proverb, including *Washa. Shiriki.* and *Pamoja tunawaka.* | Reviewer | Public use |
 | Lawyer review of the privacy notice and terms | Lawyer | Launch |
 
 ## 16. Quick reference
 
 - **We are** fun infrastructure for lasting bonds.
-- **We say** Know people the other way. Good company first. The rest follows. Join the Kulture. Light the Way. Kuna nuru gizani.
+- **We say** Same people. Different light. Know people the other way. Good company first. The rest follows. Light the Way. Join the Kulture. Kuna nuru gizani.
 - **We sound like** a warm, dry, plain-spoken friend who is good at hosting.
 - **We look like** a dark room with one point of gold light.
-- **We design** sessions that open with play, work side by side, talk face to face and send people home with a toolkit.
+- **We design** sessions that open with play, work side by side, talk face to face and send people home with a toolkit, all in service of a goal the group already has.
 - **We always** get consent, credit people, use accredited providers for risky skills, and say only what we can show.
 
 # Part B: Using the brand
@@ -468,6 +476,7 @@ Building defensibly means protecting people first, then the name, then the work.
 | Hearth, Keeper, Lamplighter, Flamebearer, with capitals | chapter, host, volunteer, fan (for our own terms) |
 | The Lighting, Kandela Rhythm, Skills That Stay | Our programme names attached to a partner's name |
 | Kuna nuru gizani (there is light in the darkness) | The proverb without its meaning at first contact |
+| Join the Kulture | Join the culture, Light the culture |
 
 Do not add a registered or trademark symbol until the mark is registered.
 
@@ -499,11 +508,12 @@ Use only the palette in section 9.2, with the contrast rules there. Smoke is for
 - **No one under 18.** No stock photography.
 - **Take it down.** If anyone asks, remove or change a photo within 24 hours.
 - **Don't tag members** in promotional posts, and don't post a gathering's exact location live.
+- **Don't turn people we serve into content.** Photography at service sites is off by default.
 - **AI images** are for exploration and art only, labelled, and never show real people or events.
 
 ## B6. Words
 
-Use the names in section 8 and the lines in section 6. Keep to plain, warm, dry and honest. Avoid hype, urgency and jargon such as synergy, leverage or ecosystem. Never write or imply "certified by Kandela", and never describe a skill session as accredited unless the accredited provider delivers it and says so in writing.
+Use the names in section 8 and the lines in section 6, one family per surface. Keep to plain, warm, dry and honest. Avoid hype, urgency and jargon such as synergy, leverage or ecosystem. Never write or imply "certified by Kandela", and never describe a skill session as accredited unless the accredited provider delivers it and says so in writing.
 
 ## B7. Social media
 

@@ -11,7 +11,7 @@ const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=u
 const CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'";
 const NOTICE = '2026-10';
 const DAY = 86400000;
-const POST_ROUTES = new Set(['/api/rsvp', '/api/stop', '/api/enquiry', '/api/wa-click']);
+const POST_ROUTES = new Set(['/api/rsvp', '/api/stop', '/api/enquiry', '/api/wa-click', '/api/cancel']);
 
 // ---------- helpers ----------
 function normPhone(s) {
@@ -303,6 +303,36 @@ function createApp(opts = {}) {
         mailer.send(adminEmail, subject, text).catch(() => {});
       }
       return send(res, 201, { ok: true, id: rec.id });
+    }
+    if (p === '/api/cancel') {
+      const phone = normPhone(d.phone);
+      const eventId = clean(d.event, 50);
+      if (!phone || !eventId) return send(res, 422, { error: 'Phone number and event are required.' });
+      const rs = store.read('rsvps');
+      const target = rs.find(r => r.event === eventId && r.phone === phone);
+      if (!target) return send(res, 404, { error: 'No RSVP found for this event and phone number.' });
+      const ev = events.find(e => e.id === eventId);
+      if (!ev) return send(res, 404, { error: 'Event not found.' });
+      const updated = rs.filter(r => !(r.event === eventId && r.phone === phone));
+      store.write('rsvps', updated);
+      const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
+      if (adminEmail) {
+        mailer.send(adminEmail, `RSVP cancelled: ${target.name} for ${ev.title}`, `RSVP cancelled\n\nName: ${target.name}\nPhone: ${phone}\nEvent: ${ev.title}\nTime: ${ts}`).catch(() => {});
+      }
+      const wl = store.read('waitlist');
+      const next = wl.find(x => x.event === eventId);
+      if (next) {
+        const waitlistRemaining = wl.filter(x => !(x.event === eventId && x.phone === next.phone));
+        store.write('waitlist', waitlistRemaining);
+        const r = await registerRsvp({ event: eventId, name: next.name, phone: next.phone, age18: true, remind: true, future: true }, 'waitlist-promotion');
+        if (adminEmail) {
+          mailer.send(adminEmail, `Waitlist promoted: ${next.name} for ${ev.title}`, `Waitlist promoted\n\nName: ${next.name}\nPhone: ${next.phone}\nEvent: ${ev.title}\nTime: ${ts}`).catch(() => {});
+        }
+        if (cfg.wa.mode === 'api' || cfg.wa.mode === 'auto') {
+          wa.sendText(next.phone, `🎉 Great news! A spot opened up for ${ev.title} on ${ev.date} at ${ev.time}. You're now confirmed. We'll message you the exact place. Reply STOP any time to withdraw.`);
+        }
+      }
+      return send(res, 200, { ok: true, cancelled: true });
     }
     return send(res, 404, { error: 'Not found.' });
   }

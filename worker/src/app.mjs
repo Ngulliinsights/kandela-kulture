@@ -16,7 +16,7 @@ export const SEC = {
   'cross-origin-opener-policy': 'same-origin',
   'strict-transport-security': 'max-age=31536000; includeSubDomains',
 };
-const POST_ROUTES = new Set(['/api/rsvp', '/api/stop', '/api/enquiry', '/api/wa-click']);
+const POST_ROUTES = new Set(['/api/rsvp', '/api/stop', '/api/enquiry', '/api/wa-click', '/api/cancel']);
 
 export function makeCfg(env) {
   const waMode = env.WA_MODE || 'auto';
@@ -298,6 +298,40 @@ export async function api(req, env, url, ctx) {
       `New enquiry: ${kind} from ${name}`,
       `New enquiry received\n\nKind: ${kind}\nName: ${name}\nOrganisation: ${org || 'None'}\nContact: ${rec.contact}\nMessage: ${message}\nTime: ${rec.ts}`);
     return json({ ok: true, id: rec.id }, 201);
+  }
+  if (p === '/api/cancel') {
+    const phone = normPhone(d.phone);
+    const eventId = clean(d.event, 50);
+    if (!phone || !eventId) return json({ error: 'Phone number and event are required.' }, 422);
+    const rs = await store.read(env, 'rsvps');
+    const target = rs.find(r => r.event === eventId && r.phone === phone);
+    if (!target) return json({ error: 'No RSVP found for this event and phone number.' }, 404);
+    const ev = events().find(e => e.id === eventId);
+    if (!ev) return json({ error: 'Event not found.' }, 404);
+    const updated = rs.filter(r => !(r.event === eventId && r.phone === phone));
+    await store.write(env, 'rsvps', updated);
+    await store.releaseRsvp(env, eventId, phone);
+    notifyAdmin(env,
+      `RSVP cancelled: ${target.name} for ${ev.title}`,
+      `RSVP cancelled\n\nName: ${target.name}\nPhone: ${phone}\nEvent: ${ev.title}\nTime: ${nowIso()}`);
+    const wl = await store.read(env, 'waitlist');
+    const next = wl.find(x => x.event === eventId);
+    if (next) {
+      const r = await registerRsvp(env, cfg, { event: eventId, name: next.name, phone: next.phone, age18: true, remind: true, future: true }, 'waitlist-promotion');
+      const promoted = await store.read(env, 'rsvps');
+      const newRsvp = promoted.find(r => r.event === eventId && r.phone === next.phone);
+      if (newRsvp) {
+        const waitlistRemaining = wl.filter(x => !(x.event === eventId && x.phone === next.phone));
+        await store.write(env, 'waitlist', waitlistRemaining);
+        notifyAdmin(env,
+          `Waitlist promoted: ${next.name} for ${ev.title}`,
+          `Waitlist promoted\n\nName: ${next.name}\nPhone: ${next.phone}\nEvent: ${ev.title}\nTime: ${nowIso()}`);
+        if (cfg.wa.mode === 'api' || cfg.wa.mode === 'auto') {
+          wa.sendText(next.phone, `🎉 Great news! A spot opened up for ${ev.title} on ${ev.date} at ${ev.time}. You're now confirmed. We'll message you the exact place. Reply STOP any time to withdraw.`);
+        }
+      }
+    }
+    return json({ ok: true, cancelled: true });
   }
   return json({ error: 'Not found.' }, 404);
 }
