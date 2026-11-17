@@ -74,6 +74,7 @@ test('performance budgets', () => {
   const size = f => fs.statSync(path.join(PUB, f)).size;
   for (const p of pages) assert.ok(size(p) <= 60 * 1024, `${p} is ${size(p)} bytes`);
   assert.ok(size('assets/style.css') <= 40 * 1024, 'css'); assert.ok(size('assets/app.js') <= 14 * 1024, 'app.js'); assert.ok(size('assets/creative.js') <= 16 * 1024, 'creative.js');
+  for (const f of ['assets/flame-passing.css', 'assets/method-mixer.css', 'assets/role-interest.css']) assert.ok(size(f) <= 10 * 1024, f);
   const fonts = fs.readdirSync(path.join(PUB, 'assets/fonts')).filter(f => f.endsWith('.woff2')).filter(f => !/italic/.test(f)).reduce((a, f) => a + size('assets/fonts/' + f), 0); assert.ok(fonts <= 125 * 1024, 'fonts ' + fonts);
   for (const f of fs.readdirSync(path.join(PUB, 'assets/patterns'))) assert.ok(size('assets/patterns/' + f) <= 60 * 1024, f);
 });
