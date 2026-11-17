@@ -150,6 +150,8 @@ test('role interest page is accessible and integrates with role-interest.js', ()
   assert.match(h, /id="role-out"/);
   assert.match(h, /id="role-ok"[^>]*hidden/);
   assert.match(h, /id="ri-banner"/);
+  assert.match(h, /Bring your spark, ignite a flame/i);
+  assert.match(h, /bring the flame, and we&rsquo;ll bring the pans/i);
 
   assert.match(h, /role="radiogroup"/);
   for (const role of ['keeper', 'lamplighter', 'flame', 'partner']) {
