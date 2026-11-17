@@ -1,0 +1,37 @@
+name = "kandela-kulture"
+main = "worker/src/index.mjs"
+compatibility_date = "2025-09-15"
+
+# Static site: every request hits the Worker first so /api/* routes work and
+# security headers are applied uniformly; everything else is served from
+# public/ by the assets binding.
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "404-page"
+run_worker_first = true
+
+# Serverless SQLite for RSVPs, consents, enquiries, waitlist, WhatsApp state.
+# Create once with:  npx wrangler d1 create kandela-kulture
+# then paste the returned database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "kandela-kulture"
+database_id = "24555ae6-0bc0-4ba7-9ac1-853bd6ccfe7f"
+
+# Daily retention purge (03:15 UTC ≈ 06:15 EAT).
+[triggers]
+crons = ["15 3 * * *"]
+
+# Non-secret configuration. Secrets go in via `npx wrangler secret put <NAME>`:
+#   ADMIN_TOKEN, HASH_SALT, WA_VERIFY_TOKEN, WA_APP_SECRET,
+#   WA_ACCESS_TOKEN, WA_PHONE_NUMBER_ID, RESEND_API_KEY
+[vars]
+SITE_ORIGIN = "https://kandela-kulture.kandelakulture.workers.dev"
+WA_MODE = "link"
+WA_API_THRESHOLD = "150"
+WA_GRAPH_VERSION = "v23.0"
+RETENTION_DAYS = "90"
+ENQUIRY_RETENTION_DAYS = "0"
+RATE_LIMIT = "10"
+MAIL_FROM = ""

@@ -18,6 +18,24 @@ ADMIN_TOKEN=your-long-random-token npm start     # http://localhost:3000
 npm test                  # 33 tests
 ```
 
+## Deploy to Cloudflare Workers (free tier)
+
+The site runs on Workers Static Assets plus a Worker (`worker/`) that mirrors every `/api/*` route. Storage is D1 (SQLite); the daily retention purge runs on a Cron Trigger. The Node server above remains for local development and tests — production is the Worker.
+
+One-time setup:
+
+```
+npm i -D wrangler
+npx wrangler login
+npx wrangler d1 create kandela-kulture     # paste database_id into wrangler.toml
+npx wrangler secret put ADMIN_TOKEN        # repeat for HASH_SALT and any WA_*/RESEND_API_KEY secrets
+npm run deploy
+```
+
+Then point your domain at the Worker (Workers → kandela-kulture → Settings → Domains & Routes). Set `SITE_ORIGIN` and `MAIL_FROM` in `wrangler.toml [vars]` to your real values. `RESEND_API_KEY` (secret) enables admin email alerts; without it, alerts are skipped exactly as when SMTP is unset on Node.
+
+Local Worker dev (uses local D1 via `--local`, no deploy needed): `npm run dev:worker`, then open http://localhost:8787.
+
 ## The experimental layer (assets/creative.js)
 
 Progressive enhancement: the site works without it, and it respects reduced motion.

@@ -1,1 +1,24 @@
-{"name":"kandela-kulture-site","version":"1.0.0","private":true,"description":"Kandela Kulture website and RSVP backend (no dependencies).","engines":{"node":">=20"},"scripts":{"start":"node server/start.js","test":"node --test","purge":"node scripts/purge.js"},"license":"UNLICENSED","dependencies":{"nodemailer":"^6.10.1"}}
+{
+  "name": "kandela-kulture-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kandela Kulture website and RSVP backend (Node for local dev, Cloudflare Worker for production).",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/start.js",
+    "test": "node --test",
+    "purge": "node scripts/purge.js",
+    "dev:worker": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "nodemailer": "^6.10.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.163.0"
+  }
+}
