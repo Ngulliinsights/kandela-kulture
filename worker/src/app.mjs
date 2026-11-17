@@ -16,7 +16,7 @@ export const SEC = {
   'cross-origin-opener-policy': 'same-origin',
   'strict-transport-security': 'max-age=31536000; includeSubDomains',
 };
-const POST_ROUTES = new Set(['/api/rsvp', '/api/stop', '/api/enquiry', '/api/wa-click', '/api/cancel']);
+const POST_ROUTES = new Set(['/api/rsvp', '/api/stop', '/api/enquiry', '/api/wa-click', '/api/cancel', '/api/role-interest']);
 
 export function makeCfg(env) {
   const waMode = env.WA_MODE || 'auto';
@@ -332,6 +332,17 @@ export async function api(req, env, url, ctx) {
       }
     }
     return json({ ok: true, cancelled: true });
+  }
+  if (p === '/api/role-interest') {
+    const role = ['keeper', 'lamplighter', 'flame', 'partner'].includes(d.role) ? d.role : null;
+    const name = clean(d.name, 60), contact = clean(d.contact, 100), message = clean(d.message, 500);
+    if (!role || !name || !contact) return json({ error: 'Please complete the form.' }, 422);
+    const rec = { id: rid(), ts: nowIso(), role, name, contact: normPhone(contact) || contact, message };
+    await store.append(env, 'role-interest', rec);
+    notifyAdmin(env,
+      `Role interest: ${role} from ${name}`,
+      `Role interest received\n\nRole: ${role}\nName: ${name}\nContact: ${rec.contact}\nMessage: ${message || 'None'}\nTime: ${rec.ts}`);
+    return json({ ok: true, id: rec.id }, 201);
   }
   return json({ error: 'Not found.' }, 404);
 }

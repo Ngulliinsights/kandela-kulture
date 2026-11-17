@@ -11,7 +11,7 @@ const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=u
 const CSP = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'";
 const NOTICE = '2026-10';
 const DAY = 86400000;
-const POST_ROUTES = new Set(['/api/rsvp', '/api/stop', '/api/enquiry', '/api/wa-click', '/api/cancel']);
+const POST_ROUTES = new Set(['/api/rsvp', '/api/stop', '/api/enquiry', '/api/wa-click', '/api/cancel', '/api/role-interest']);
 
 // ---------- helpers ----------
 function normPhone(s) {
@@ -333,6 +333,18 @@ function createApp(opts = {}) {
         }
       }
       return send(res, 200, { ok: true, cancelled: true });
+    }
+    if (p === '/api/role-interest') {
+      const role = ['keeper', 'lamplighter', 'flame', 'partner'].includes(d.role) ? d.role : null;
+      const name = clean(d.name, 60), contact = clean(d.contact, 100), message = clean(d.message, 500);
+      if (!role || !name || !contact) return send(res, 422, { error: 'Please complete the form.' });
+      const rec = { id: store.id(), ts, role, name, contact: normPhone(contact) || contact, message };
+      store.append('role-interest', rec);
+      const adminEmail = process.env.ADMIN_EMAIL || process.env.SMTP_USER;
+      if (adminEmail) {
+        mailer.send(adminEmail, `Role interest: ${role} from ${name}`, `Role interest received\n\nRole: ${role}\nName: ${name}\nContact: ${rec.contact}\nMessage: ${message || 'None'}\nTime: ${ts}`).catch(() => {});
+      }
+      return send(res, 201, { ok: true, id: rec.id });
     }
     return send(res, 404, { error: 'Not found.' });
   }

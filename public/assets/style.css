@@ -99,6 +99,9 @@ a:focus-visible,.bt:focus-visible,button:focus-visible,[tabindex]:focus-visible,
 /* 4 · HEADER & MENU -------------------------------------------------------- */
 .sk{position:absolute;left:-999px;top:8px;background:var(--bt);color:var(--bf);padding:10px 14px;border-radius:8px;z-index:99}
 .sk:focus{left:8px}
+.pilot-notice{background:var(--pn);border:1px solid var(--ln);border-left:4px solid var(--amber);padding:12px 22px;margin:0;text-align:center}
+.pilot-notice p{margin:0;font-size:.9em;color:var(--mu)}
+.pilot-notice a{color:var(--tx);text-decoration:underline}
 
 header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--ln);transition:background-color var(--t3),box-shadow var(--t3);view-transition-name:hdr}
 header.sc{background:color-mix(in srgb,var(--bg) 94%,transparent);box-shadow:0 1px 0 var(--ln),0 12px 30px -22px #000}
